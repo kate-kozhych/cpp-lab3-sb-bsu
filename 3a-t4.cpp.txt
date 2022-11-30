@@ -3,15 +3,35 @@ using namespace std;
 
 int main()
 {
-int k, i = 1, sum_k = 0, number;
-cout << " Enter the amount of integers to sum = "; cin >> k;
+int k, i = 1, sum_k = 0;
+double number;
+cout << " Enter the amount of integers to sum = ";
+cin >> k;
+if (cin.fail()) //If the condition is not met
+{ 
+    cout << "Warning! You did not enter an integer" << endl;
+std::cin.clear(); //Restoring the flow
+std::cin.ignore(); //Extracting characters from the input stream (cin), extracted characters are ignored and not used
+cout << " Please, enter the amount of integers to sum again: ";
+cin >> k;
+}
+
 if (k==0) cout << "This expression can not be calculated "; //Using if statement to modify the program so that it works if the user inputs zero as the k value
 else {
 while (i <= k) //loop will continue until i !> k
 { 
 cout << "Enter integer nr. " << i << ": "; 
 cin >> number;
-sum_k += number; i++;
+while (number-(int)number!=0) // Adding another loop for the case when our number is not an integer
+/*We do this by checking by subtracting its integer form from a non-integer and comparing it to 0*/
+{
+    cout << "This operation cannot be performed because the number is not an integer" << "\n";
+cout << "Please enter another number: ";
+cin >> number;
+break; //Jumping out the loop
+}
+sum_k += number;
+i++;
 }
 cout << " The total sum of " << k << " integers is: "  << sum_k;
 return 0;
